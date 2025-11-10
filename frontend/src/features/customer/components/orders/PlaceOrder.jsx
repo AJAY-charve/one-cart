@@ -516,7 +516,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { shopDataContext } from "../../../../context/ShopContext";
-import { authDataContext } from "../../../../context/authContext";
+import { authDataContext } from "../../../../context/AuthContext";
 import Title from "../../common/Title";
 import CartTotal from "../cart/CartTotal";
 import { valueToApiMapper } from "./mapper/placeHolderMapper";

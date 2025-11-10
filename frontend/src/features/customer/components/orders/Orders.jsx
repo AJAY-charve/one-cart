@@ -112,7 +112,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { shopDataContext } from "../../../../context/ShopContext";
-import { authDataContext } from "../../../../context/authContext";
+import { authDataContext } from "../../../../context/AuthContext";
 import Title from "../../common/Title";
 
 function Order() {

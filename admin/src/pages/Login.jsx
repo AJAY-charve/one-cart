@@ -5,7 +5,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import axios from "axios";
 import logo from "../assets/logo.png";
 import { authDataContext } from "../context/AuthContext";
-import { adminDataContext } from "../context/adminContext";
+import { adminDataContext } from "../context/AdminContext";
 
 const Login = () => {
   let [show, setsShow] = useState(false);

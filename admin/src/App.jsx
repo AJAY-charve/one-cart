@@ -6,7 +6,7 @@ import Lists from "./pages/Lists";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
 import { useContext } from "react";
-import { adminDataContext } from "./context/adminContext";
+import { adminDataContext } from "./context/AdminContext";
 
 const App = () => {
   let { adminData } = useContext(adminDataContext);

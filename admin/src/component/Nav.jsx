@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import axios from "axios";
 import { authDataContext } from "../context/AuthContext";
-import { adminDataContext } from "../context/adminContext";
+import { adminDataContext } from "../context/AdminContext";
 
 const Nav = () => {
   let navigate = useNavigate();

@@ -246,7 +246,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { shopDataContext } from "../../../context/ShopContext";
 import { userDataContext } from "../../../context/UserContext";
-import { authDataContext } from "../../../context/authContext";
+import { authDataContext } from "../../../context/AuthContext";
 
 const Nav = () => {
   const navigate = useNavigate();

@@ -157,7 +157,7 @@ import { useNavigate } from "react-router-dom";
 import google from "../../../../assets/google.png";
 import { IoIosEye } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
-import { authDataContext } from "../../../../context/authContext";
+import { authDataContext } from "../../../../context/AuthContext";
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../../../utills/Firebase";

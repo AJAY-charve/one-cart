@@ -18,7 +18,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    // origin: ["http://localhost:5173", "http://localhost:5174"],
+        origin: ["https://one-cart-hazel.vercel.app", "https://one-cart-admin.vercel.app"],
     credentials: true,
   })
 );

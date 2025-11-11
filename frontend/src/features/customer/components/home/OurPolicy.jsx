@@ -8,7 +8,7 @@ const OurPolicy = () => {
   return (
     <div
       className="w-[100vw] h-[100vh] md:h-[70vh] flex items-center justify-start 
-  flex-col bg-gradient-to-l from-[#141414] to-[#0c2025] gap-[50px]"
+  flex-col  gap-[50px]"
     >
       <div className="h-[8%] w-[100%] text-center md:mt-[50px]">
         <Title text1={"OUR"} text2={"POLICY"} />

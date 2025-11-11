@@ -149,7 +149,7 @@ const CustomerRoutes = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-      <Ai />
+      {/* <Ai /> */}
       {userData && <Footer />}
     </>
   );

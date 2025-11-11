@@ -7,7 +7,7 @@ export const apiToValueMapper = (apiData = {}) => ({
 
 // Convert Formik form values to API payload
 export const valueToApiMapper = (formValues) => ({
-  full_name: formValues.name,
+  name: formValues.name,
   email: formValues.email,
   password: formValues.password,
 });

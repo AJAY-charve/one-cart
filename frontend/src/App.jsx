@@ -150,11 +150,13 @@
 
 import React from "react";
 import CustomerRoutes from "./features/customer/routes/CustomerRoutes";
+import CustomToast from "./common/CustomToast";
 
 const App = () => {
   return (
     <div>
       <CustomerRoutes />
+       <CustomToast />
     </div>
   );
 };

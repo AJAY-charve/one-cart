@@ -284,237 +284,9 @@
 
 // export default PlaceOrder;
 
-// import React, { useContext, useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import { shopDataContext } from "../../../../context/ShopContext";
-// import { authDataContext } from "../../../../context/authContext";
-// import Title from "../../common/Title";
-// import CartTotal from "../cart/CartTotal";
-
-// function PlaceOrder() {
-//   let [method, setMethod] = useState("cod");
-//   let navigate = useNavigate();
-//   const { cartItem, setCartItem, getCartAmount, delivery_fee, products } =
-//     useContext(shopDataContext);
-//   let { serverUrl } = useContext(authDataContext);
-//   let [loading, setLoading] = useState(false);
-
-//   let [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     street: "",
-//     city: "",
-//     state: "",
-//     pinCode: "",
-//     country: "",
-//     phone: "",
-//   });
-
-//   const onChangeHandler = (e) => {
-//     const name = e.target.name;
-//     const value = e.target.value;
-//     setFormData((data) => ({ ...data, [name]: value }));
-//   };
-
-//   const onSubmitHandler = async (e) => {
-//     setLoading(true);
-//     e.preventDefault();
-//     try {
-//       let orderItems = [];
-//       for (const items in cartItem) {
-//         for (const item in cartItem[items]) {
-//           if (cartItem[items][item] > 0) {
-//             const itemInfo = structuredClone(
-//               products.find((product) => product._id === items)
-//             );
-//             if (itemInfo) {
-//               itemInfo.size = item;
-//               itemInfo.quantity = cartItem[items][item];
-//               orderItems.push(itemInfo);
-//             }
-//           }
-//         }
-//       }
-//       let orderData = {
-//         address: formData,
-//         items: orderItems,
-//         amount: getCartAmount() + delivery_fee,
-//       };
-//       switch (method) {
-//         case "cod":
-//           const result = await axios.post(
-//             serverUrl + "/api/order/placeorder",
-//             orderData,
-//             { withCredentials: true }
-//           );
-//           console.log(result.data);
-//           if (result.data) {
-//             setCartItem({});
-//             toast.success("Order Placed");
-//             navigate("/order");
-//             setLoading(false);
-//           } else {
-//             console.log(result.data.message);
-//             toast.error("Order Placed Error");
-//             setLoading(false);
-//           }
-//           break;
-//         default:
-//           break;
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   return (
-//     <div className="w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-center justify-center flex-col md:flex-row gap-[50px]  relative">
-//       <div className="lg:w-[50%] w-[100%] h-[100%] flex items-center justify-center  lg:mt-[0px] mt-[90px] ">
-//         <form
-//           action=""
-//           onSubmit={onSubmitHandler}
-//           className="lg:w-[70%] w-[95%] lg:h-[70%] h-[100%]"
-//         >
-//           <div className="py-[10px]">
-//             <Title text1={"DELIVERY"} text2={"INFORMATION"} />
-//           </div>
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="text"
-//               placeholder="First name"
-//               className="w-[48%] h-[50px] rounded-md bg-slate-700 placeholder:text-[white] text-[18px] px-[20px] shadow-sm shadow-[#343434]"
-//               required
-//               onChange={onChangeHandler}
-//               name="firstName"
-//               value={formData.firstName}
-//             />
-
-//             <input
-//               type="text"
-//               placeholder="Last name"
-//               className="w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="lastName"
-//               value={formData.lastName}
-//             />
-//           </div>
-
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="email"
-//               placeholder="Email address"
-//               className="w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="email"
-//               value={formData.email}
-//             />
-//           </div>
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="text"
-//               placeholder="Street"
-//               className="w-[100%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="street"
-//               value={formData.street}
-//             />
-//           </div>
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="text"
-//               placeholder="City"
-//               className="w-[48%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="city"
-//               value={formData.city}
-//             />
-//             <input
-//               type="text"
-//               placeholder="State"
-//               className="w-[48%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="state"
-//               value={formData.state}
-//             />
-//           </div>
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="text"
-//               placeholder="Pincode"
-//               className="w-[48%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="pinCode"
-//               value={formData.pinCode}
-//             />
-//             <input
-//               type="text"
-//               placeholder="Country"
-//               className="w-[48%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="country"
-//               value={formData.country}
-//             />
-//           </div>
-//           <div className="w-[100%] h-[70px] flex items-center justify-between px-[10px]">
-//             <input
-//               type="text"
-//               placeholder="Phone"
-//               className="w-[100%] h-[50px] rounded-md bg-slate-700 shadow-sm shadow-[#343434] placeholder:text-[white] text-[18px] px-[20px]"
-//               required
-//               onChange={onChangeHandler}
-//               name="phone"
-//               value={formData.phone}
-//             />
-//           </div>
-//           <div>
-//             <button
-//               type="submit"
-//               className="text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-[10px] px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049] ml-[30px] mt-[20px]"
-//             >
-//               {loading ? <Loading /> : "PLACE ORDER"}
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//       <div className="lg:w-[50%] w-[100%] min-h-[100%] flex items-center justify-center gap-[30px] ">
-//         <div className="lg:w-[70%] w-[90%] lg:h-[70%] h-[100%]  flex items-center justify-center gap-[10px] flex-col">
-//           <CartTotal />
-//           <div className="py-[10px]">
-//             <Title text1={"PAYMENT"} text2={"METHOD"} />
-//           </div>
-//           <div className="w-[100%] h-[30vh] lg:h-[100px] flex items-start mt-[20px] lg:mt-[0px] justify-center gap-[50px]">
-//             <button
-//               onClick={() => setMethod("cod")}
-//               className={`w-[200px] h-[50px] bg-gradient-to-t from-[#95b3f8] to-[white] text-[14px] px-[20px] rounded-sm text-[#332f6f] font-bold ${
-//                 method === "cod"
-//                   ? "border-[5px] border-blue-900 rounded-sm"
-//                   : ""
-//               }`}
-//             >
-//               CASH ON DELIVERY{" "}
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default PlaceOrder;
-
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { shopDataContext } from "../../../../context/ShopContext";
 import { authDataContext } from "../../../../context/AuthContext";
 import Title from "../../common/Title";
@@ -523,9 +295,10 @@ import { valueToApiMapper } from "./mapper/placeHolderMapper";
 import FormProvider from "../../../../common/FormProvider";
 import { placeOrderValidation } from "./validation/placeHolderMapper";
 import InputField from "../../../../common/InputField";
+import { showError, showSuccess } from "../../../../../utills/toastUtils";
 
 function PlaceOrder() {
-  const [method, setMethod] = useState("cod");
+  const [method, setMethod] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -545,12 +318,23 @@ function PlaceOrder() {
     phone: "",
   };
 
-  const onSubmit = async (values) => {
+  // ✅ Place Order Handler
+  const handlePlaceOrder = async (values) => {
+    if (!method) {
+      toast.error("Please select a payment method!");
+      return;
+    }
+
+    if (method === "online") {
+      toast.info("Online Payment coming soon 💳");
+      return;
+    }
+
     setLoading(true);
     try {
       const mappedAddress = valueToApiMapper(values).address;
-
       let orderItems = [];
+
       for (const items in cartItem) {
         for (const item in cartItem[items]) {
           if (cartItem[items][item] > 0) {
@@ -572,82 +356,119 @@ function PlaceOrder() {
         amount: getCartAmount() + delivery_fee,
       };
 
-      if (method === "cod") {
-        const result = await axios.post(
-          `${serverUrl}/api/order/placeorder`,
-          orderData,
-          { withCredentials: true }
-        );
+      const result = await axios.post(
+        `${serverUrl}/api/order/placeorder`,
+        orderData,
+        { withCredentials: true }
+      );
 
-        if (result.data) {
-          setCartItem({});
-          toast.success("Order Placed");
-          navigate("/order");
-        } else {
-          toast.error("Order Placement Failed");
-        }
+      if (result.data) {
+        setCartItem({});
+        showSuccess("Order Placed Successfully 🎉");
+        navigate("/order");
+      } else {
+        showError("Order Placement Failed");
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
+      console.error(error);
+      showError("Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-center justify-center flex-col md:flex-row gap-[50px]">
-      <div className="lg:w-[50%] w-[100%] h-[100%] flex items-center justify-center">
-        <div className="lg:w-[70%] w-[95%]">
-          <div className="py-[10px]">
-            <Title text1={"DELIVERY"} text2={"INFORMATION"} />
-          </div>
-
+    <div className="w-full min-h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] flex flex-col lg:flex-row items-center justify-between p-5 lg:p-10 gap-10">
+      {/* LEFT SECTION - FORM */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center">
+        <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] bg-[#111827]/60 p-6 sm:p-8 rounded-2xl shadow-md backdrop-blur-md border border-slate-700">
+          <Title text1={"DELIVERY"} text2={"INFORMATION"} />
           <FormProvider
             initialValues={initialValues}
             validationSchema={placeOrderValidation}
-            onSubmit={onSubmit}
+            onSubmit={handlePlaceOrder}
           >
-            <div className="flex gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <InputField name="firstName" placeholder="First name" />
               <InputField name="lastName" placeholder="Last name" />
             </div>
-            <InputField name="email" placeholder="Email address" />
-            <InputField name="street" placeholder="Street" />
-            <div className="flex gap-4">
+
+            <div className="mb-4">
+              <InputField name="email" placeholder="Email address" />
+            </div>
+
+            <div className="mb-4">
+              <InputField name="street" placeholder="Street" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <InputField name="city" placeholder="City" />
               <InputField name="state" placeholder="State" />
             </div>
-            <div className="flex gap-4">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <InputField name="pinCode" placeholder="Pincode" />
               <InputField name="country" placeholder="Country" />
             </div>
-            <InputField name="phone" placeholder="Phone" />
 
+            <div className="mb-4">
+              <InputField name="phone" placeholder="Phone" />
+            </div>
+
+            {/* ✅ PAYMENT METHOD SELECTION */}
+            <div className="py-5">
+              <Title text1={"PAYMENT"} text2={"METHOD"} />
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+              <button
+                type="button"
+                onClick={() => setMethod("cod")}
+                className={`w-[200px] h-[50px] rounded-lg text-[15px] font-semibold transition-all duration-300 ${
+                  method === "cod"
+                    ? "bg-gradient-to-r from-blue-600 to-sky-400 text-white shadow-lg"
+                    : "bg-slate-300 text-slate-800 hover:bg-slate-200"
+                }`}
+              >
+                Cash on Delivery
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMethod("online")}
+                className={`w-[200px] h-[50px] rounded-lg text-[15px] font-semibold transition-all duration-300 ${
+                  method === "online"
+                    ? "bg-gradient-to-r from-green-600 to-lime-400 text-white shadow-lg"
+                    : "bg-slate-300 text-slate-800 hover:bg-slate-200"
+                }`}
+              >
+                Online Payment
+              </button>
+            </div>
+
+            {/* ✅ PLACE ORDER BUTTON */}
             <button
               type="submit"
-              disabled={loading}
-              className="mt-6 text-[18px] bg-[#3bcee848] py-[10px] px-[50px] rounded-2xl text-white border border-[#80808049]"
+              disabled={!method || loading}
+              className={`w-full sm:w-auto px-10 py-3 rounded-xl text-[17px] font-semibold border transition-all duration-300 ${
+                !method
+                  ? "bg-slate-600 text-gray-300 cursor-not-allowed"
+                  : "bg-[#3bcee848] hover:bg-[#3bcee870] text-white border-[#80808049]"
+              }`}
             >
-              {loading ? "Placing..." : "PLACE ORDER"}
+              {loading
+                ? "Placing Order..."
+                : !method
+                ? "Select Payment Method"
+                : "PLACE ORDER"}
             </button>
           </FormProvider>
         </div>
       </div>
 
-      <div className="lg:w-[50%] w-[100%] flex items-center justify-center flex-col">
+      {/* RIGHT SECTION - CART TOTAL */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-[#111827]/60 p-6 sm:p-8 rounded-2xl shadow-md backdrop-blur-md border border-slate-700">
         <CartTotal />
-        <div className="py-[10px]">
-          <Title text1={"PAYMENT"} text2={"METHOD"} />
-        </div>
-        <button
-          onClick={() => setMethod("cod")}
-          className={`w-[200px] h-[50px] bg-gradient-to-t from-[#95b3f8] to-[white] text-[14px] px-[20px] rounded-sm text-[#332f6f] font-bold ${
-            method === "cod" ? "border-[5px] border-blue-900" : ""
-          }`}
-        >
-          CASH ON DELIVERY
-        </button>
       </div>
     </div>
   );
